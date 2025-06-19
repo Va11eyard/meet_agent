@@ -5,7 +5,7 @@ import { LoadingState } from "@/components/loading-state";
 
 import { useTRPC } from "@/trpc/client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 
 import { AgentIdViewHeader } from "./agent-id-view-header";
 
@@ -15,13 +15,39 @@ import { Badge } from "@/components/ui/badge"
     ;
 import { VideoIcon } from "lucide-react";
 
+import { useRouter } from "next/navigation";
+
+import { toast } from "sonner";
+
+import { useConfirm } from "../../hooks/use-confirm";
+
 interface Props {
     agentId: string;
 }
 
 export const AgentIdView = ({ agentId }: Props) => {
+    const router = useRouter();
+    const queryClient = useQueryClient();
+
     const trpc = useTRPC();
 
+    const removeAgent = useMutation(
+        trpc.agents.remove.mutationOptions(
+            {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
+                    router.push("/agents");
+                },
+                onError: async (error) => {
+                    toast.error(error.message);
+                },
+            }),
+    )
+
+    const [] = useConfirm(
+        "Are you sure you want to remove this agent?",
+        `This action cannot be undone. All data, including ${data.meetingCount} related to this agent will be permanently deleted.`,
+    );
     const { data } = useSuspenseQuery(trpc.agents.getOne.queryOptions({ id: agentId }));
 
     return (
@@ -30,7 +56,7 @@ export const AgentIdView = ({ agentId }: Props) => {
                 agentId={agentId}
                 agentName={data.name}
                 onEdit={() => { }}
-                onRemove={() => { }}
+                onRemove={() => removeAgent.mutate({ id: agentId })}
             />
             <div className="bg-white rounded-lg border">
                 <div className="px-4 py-5 gap-y-5 flex flex-col col-span-5">
