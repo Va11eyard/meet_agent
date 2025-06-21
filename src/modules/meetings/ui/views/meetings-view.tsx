@@ -15,7 +15,6 @@ import { columns } from "../components/columns";
 import { useRouter } from "next/navigation";
 
 import { useMeetingsFilters } from "../../hooks/use-meetings-filters";
-import page from "@/app/(auth)/sign-in/page";
 
 export const MeetingsView = () => {
     const trpc = useTRPC();
