@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
 
-import { useConfirm } from "../../hooks/use-confirm";
+import { useConfirm } from "../../../../hooks/use-confirm";
 
 interface Props {
     agentId: string;
@@ -99,7 +99,7 @@ export const AgentIdView = ({ agentId }: Props) => {
                             {data.meetingCount} {data.meetingCount === 1 ? "Meeting" : "Meetings"}
                         </Badge>
                         <div className="flex flex-col gap-y-4">
-                            <p className="text-lg font-medium">Intructions</p>
+                            <p className="text-lg font-medium">Instructions</p>
                             <p className="text-neutral-800">{data.instructions}</p>
                         </div>
                     </div>
