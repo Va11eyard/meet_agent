@@ -57,7 +57,7 @@ export const MeetingsListHeader = () => {
                             </Button>
                         )}
                     </div>
-                    <ScrollBar orientation="horizontal"/>
+                    <ScrollBar orientation="horizontal" />
                 </ScrollArea>
             </div>
         </>
