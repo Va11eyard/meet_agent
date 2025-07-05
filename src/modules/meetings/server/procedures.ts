@@ -19,7 +19,7 @@ import { generateAvatarUri } from "@/lib/avatar";
 
 export const meetingsRouter = createTRPCRouter({
 
-    generateTpken: protectedProcedure.mutation(async ({ ctx }) => {
+    generateToken: protectedProcedure.mutation(async ({ ctx }) => {
         await streamVideo.upsertUsers([
             {
                 id: ctx.auth.user.id,
