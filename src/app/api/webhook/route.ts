@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
 
         const realtimeClient = await streamVideo.video.connectOpenAi({
             call,
-            openAiApiKey: process.env.OPENAI_API_KEY,
+            openAiApiKey: process.env.OPENAI_API_KEY!,
             agentUserId: existingAgent.id,
         })
 
