@@ -13,6 +13,7 @@ import { UpcomingState } from "../components/upcoming-state";
 import { CancelledState } from "../components/cancelled-state";
 import { ProcessingState } from "../components/processing-state";
 import { ActiveState } from "../components/active-state";
+import { CompletedState } from "../components/completed-state";
 
 import { useConfirm } from "@/hooks/use-confirm";
 
@@ -91,7 +92,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
                         isCancelling={false}
                     />}
                 {isCancelled && <CancelledState />}
-                {isCompleted && <div>Completed</div>}
+                {isCompleted && <CompletedState data={data} />}
                 {isProcessing && <ProcessingState />}
             </div >
         </>
